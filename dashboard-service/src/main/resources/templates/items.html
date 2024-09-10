@@ -3,6 +3,7 @@
     <head>
         <title>Lista de Items</title>
         <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="/css/styles.css"> <!-- Enlace a la hoja de estilos -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Usaremos jQuery para simplificar la lógica -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script> <!-- SockJS para WebSocket -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script> <!-- STOMP para manejar mensajes WebSocket -->
@@ -48,26 +49,8 @@
 
             // Función para actualizar la tabla con el item recibido
             function updateTableWithItem(item) {
-                /*
-                 var existingRow = $('#item-' + item.id);
-                 if (existingRow.length > 0) {
-                 // Actualizar el item si ya existe
-                 existingRow.html(
-                 '<td>' + item.id + '</td>' +
-                 '<td>' + item.name + '</td>' +
-                 '<td>' + item.type + '</td>' +
-                 '<td>' + (item.needsRefrigeration ? "Sí" : "No") + '</td>' +
-                 '<td>' + item.capacity + '</td>' +
-                 '<td>' + item.container + '</td>' +
-                 '<td>' + item.createdBy + '</td>' +
-                 '<td>' + item.status + '</td>' +
-                 '<td>' + item.timestamp + '</td>'
-                 );
-                 } else {
-                 */
-
-                // Agregar nuevo item si no existe en la tabla
-                $('#itemsBody').append(
+                // var existingRow = $('#item-' + item.id);
+                var newRow =
                         '<tr id="item-' + item.id + '">' +
                         '<td>' + item.id + '</td>' +
                         '<td>' + item.name + '</td>' +
@@ -78,8 +61,17 @@
                         '<td>' + item.createdBy + '</td>' +
                         '<td>' + item.status + '</td>' +
                         '<td>' + item.timestamp + '</td>' +
-                        '</tr>'
-                        );
+                        '</tr>';
+                
+                /*
+                if (existingRow.length > 0) {
+                    // Actualizar el item si ya existe
+                    existingRow.replaceWith(newRow);
+                } else {
+                */ 
+                 
+                    // Insertar la nueva fila al principio de la tabla
+                    $('#itemsBody').prepend(newRow);
                 // }
             }
         </script>

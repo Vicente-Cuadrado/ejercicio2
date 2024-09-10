@@ -12,17 +12,27 @@ public class ItemGeneratorService {
 
     private final Random random = new Random();
 
+    // Array de tipos de productos
+    private static final String[] TYPES = {"BEBIDA", "COMIDA", "SALSAS", "ESPECIES"};
+
     // Método para generar un item aleatorio
     public Item generateRandomItem() {
         Item item = new Item();
         item.setName("Item " + random.nextInt(1000)); // Nombre aleatorio
-        item.setType(random.nextBoolean() ? "Bebida" : "Comida"); // Tipo aleatorio
+        item.setType(getRandomType()); // Tipo aleatorio entre "bebida", "comida", "salsas", "especies"
         item.setNeedsRefrigeration(random.nextBoolean()); // Necesidad de refrigeración aleatoria
-        item.setCapacity(random.nextInt(1000)); // Capacidad aleatoria en gramos
-        item.setContainer(random.nextBoolean() ? "Botella" : "Caja"); // Tipo de contenedor aleatorio
-        item.setCreatedBy("AutomatedTest"); // Creador automático
+        item.setCapacity(random.nextBoolean() ? 100 : 1000); // Capacidad aleatoria en gramos
+        item.setContainer(random.nextBoolean() ? "BOTELLA" : "CAJA"); // Tipo de contenedor aleatorio
+        item.setCreatedBy("AUTOMATED TEST"); // Creador automático
         item.setTimestamp(LocalDateTime.now()); // Timestamp actual
         item.setStatus("CREATED"); // Estado inicial
         return item;
     }
+
+    // Método para obtener un tipo aleatorio
+    private String getRandomType() {
+        int index = random.nextInt(TYPES.length);
+        return TYPES[index];
+    }
+
 }

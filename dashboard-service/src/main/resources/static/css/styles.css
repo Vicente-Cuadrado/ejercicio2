@@ -1,0 +1,51 @@
+/* Estilo general de la página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Título de la página */
+h1 {
+    color: #333;
+    text-align: center;
+}
+
+/* Estilos para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Encabezados de la tabla con azul oscuro sólido */
+th {
+    background-color: #003366; /* Azul oscuro sólido */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Hover sobre filas */
+tr:hover {
+    background-color: #ddd;
+}
+
+/* Estilo para mensajes de consola */
+.console {
+    font-family: monospace;
+    background-color: #000;
+    color: #0f0;
+    padding: 10px;
+    margin-top: 20px;
+}
