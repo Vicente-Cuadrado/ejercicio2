@@ -12,7 +12,8 @@ public class ItemManagementService {
     @Autowired
     private RestTemplate restTemplate;
 
-    private final String apiUrl = "http://api-service:8080/api/items";  // Cambia la URL según tu entorno
+    // private final String apiUrl = "http://api-service:8080/api/items";  // Cambia la URL según tu entorno
+    private final String apiUrl = "http://localhost:8080/api/items";  // Cambia la URL según tu entorno
 
     public Item[] getAllItems() {
         return restTemplate.getForObject(apiUrl, Item[].class);

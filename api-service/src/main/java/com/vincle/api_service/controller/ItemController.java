@@ -4,11 +4,14 @@ import com.vincle.api_service.model.Item;
 import com.vincle.api_service.service.ItemService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/items")
@@ -21,7 +24,12 @@ public class ItemController {
     @Operation(summary = "Crear un nuevo item")  // Documentación del endpoint
     @PostMapping
     public Item createItem(@RequestBody Item item) {
-        return itemService.createItem(item);
+        try {
+            return itemService.createItem(item);
+        } catch (IOException ex) {
+            Logger.getLogger(ItemController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Operation(summary = "Obtener todos los items")  // Documentación del endpoint
@@ -39,12 +47,21 @@ public class ItemController {
     @Operation(summary = "Actualizar un item existente")  // Documentación del endpoint
     @PutMapping("/{id}")
     public Item updateItem(@PathVariable Long id, @RequestBody Item updatedItem) {
-        return itemService.updateItem(id, updatedItem);
+        try {
+            return itemService.updateItem(id, updatedItem);
+        } catch (IOException ex) {
+            Logger.getLogger(ItemController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     @Operation(summary = "Eliminar un item por ID")  // Documentación del endpoint
     @DeleteMapping("/{id}")
     public void deleteItem(@PathVariable Long id) {
-        itemService.deleteItem(id);
+        try {
+            itemService.deleteItem(id);
+        } catch (IOException ex) {
+            Logger.getLogger(ItemController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

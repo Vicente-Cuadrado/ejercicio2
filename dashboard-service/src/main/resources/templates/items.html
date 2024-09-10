@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Items</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Usaremos jQuery para simplificar la lógica -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script> <!-- SockJS para WebSocket -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script> <!-- STOMP para manejar mensajes WebSocket -->
+    </head>
+    <body>
+        <h1>Lista de Items en tiempo real</h1>
+        <table id="itemsTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo</th>
+                    <th>Precisa Refrigeración</th>
+                    <th>Capacidad</th>
+                    <th>Envase</th>
+                    <th>Cliente</th>
+                    <th>Estado</th>
+                    <th>Timestamp</th>
+                </tr>
+            </thead>
+            <tbody id="itemsBody">
+                <!-- Aquí se mostrarán los items modificados -->
+            </tbody>
+        </table>
+
+        <script type="text/javascript">
+            // Conectar usando SockJS y STOMP
+            var socket = new SockJS('http://localhost:8081/ws/items');
+            var stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, function (frame) {
+                console.log('Conectado: ' + frame);
+
+                // Suscribirse a la ruta /topic/items
+                stompClient.subscribe('/topic/items', function (message) {
+                    var payload = JSON.parse(message.body);
+                    console.log("Mensaje recibido:", payload);
+
+                    // Lógica para actualizar la tabla de items
+                    updateTableWithItem(payload);
+                });
+            });
+
+            // Función para actualizar la tabla con el item recibido
+            function updateTableWithItem(item) {
+                /*
+                 var existingRow = $('#item-' + item.id);
+                 if (existingRow.length > 0) {
+                 // Actualizar el item si ya existe
+                 existingRow.html(
+                 '<td>' + item.id + '</td>' +
+                 '<td>' + item.name + '</td>' +
+                 '<td>' + item.type + '</td>' +
+                 '<td>' + (item.needsRefrigeration ? "Sí" : "No") + '</td>' +
+                 '<td>' + item.capacity + '</td>' +
+                 '<td>' + item.container + '</td>' +
+                 '<td>' + item.createdBy + '</td>' +
+                 '<td>' + item.status + '</td>' +
+                 '<td>' + item.timestamp + '</td>'
+                 );
+                 } else {
+                 */
+
+                // Agregar nuevo item si no existe en la tabla
+                $('#itemsBody').append(
+                        '<tr id="item-' + item.id + '">' +
+                        '<td>' + item.id + '</td>' +
+                        '<td>' + item.name + '</td>' +
+                        '<td>' + item.type + '</td>' +
+                        '<td>' + (item.needsRefrigeration ? "Sí" : "No") + '</td>' +
+                        '<td>' + item.capacity + '</td>' +
+                        '<td>' + item.container + '</td>' +
+                        '<td>' + item.createdBy + '</td>' +
+                        '<td>' + item.status + '</td>' +
+                        '<td>' + item.timestamp + '</td>' +
+                        '</tr>'
+                        );
+                // }
+            }
+        </script>
+    </body>
+</html>
