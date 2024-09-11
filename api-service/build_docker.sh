@@ -1,4 +1,5 @@
 #!/bin/bash
+./mvnw clean package -DskipTests
 docker network create vincle-network
 docker image rm api-service
 docker build -t api-service .

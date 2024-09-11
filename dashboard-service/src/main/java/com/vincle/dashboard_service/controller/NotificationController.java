@@ -7,12 +7,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 
+ * Controlador que maneja las notificaciones enviadas desde otros servicios (por ejemplo, api-service).
+ * Se encarga de recibir notificaciones y retransmitirlas a los clientes suscritos mediante WebSocket. 
+ * 
+ * @author Vicente Cuadrado
+ */
 @RestController
 public class NotificationController {
 
     @Autowired
-    private SimpMessagingTemplate messagingTemplate;
+    private SimpMessagingTemplate messagingTemplate; // Herramienta para enviar mensajes a los clientes WebSocket
 
+    /**
+     * 
+     * Endpoint para recibir notificaciones de otros servicios a través de una solicitud HTTP POST.
+     * 
+     * @param payload Objeto NotificationPayload que contiene los detalles de la notificación.
+     */    
     @PostMapping("/api/notify")
     public void receiveNotification(@RequestBody NotificationPayload payload) {
         // Procesar la notificación recibida

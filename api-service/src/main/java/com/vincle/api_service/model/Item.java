@@ -4,6 +4,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+/**
+ * 
+ * Represena un Item con todas sus propierdades.
+ * 
+ * @author Vicente Cuadrado
+ */
 @Entity
 @Table(name = "items")
 @Schema(description = "Representa un item con todas sus propiedades")

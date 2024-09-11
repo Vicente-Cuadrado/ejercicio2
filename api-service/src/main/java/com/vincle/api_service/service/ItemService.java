@@ -11,7 +11,14 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Value;
 
+/**
+ * 
+ * Servicio con las operaciones CRUD de un Item.
+ * 
+ * @author Vicente Cuadrado
+ */
 @Service
 public class ItemService {
 
@@ -21,9 +28,22 @@ public class ItemService {
     @Autowired
     private RestTemplate restTemplate;  // Para comunicarse con el dashboard-service
 
-    private static final String DASHBOARD_SERVICE_URL = "http://localhost:8081/api/notify";  // URL del dashboard-service
+    @Value("${api.dashboard.url}")
+    private String DASHBOARD_SERVICE_URL;
+    
+    // private static final String DASHBOARD_SERVICE_URL = "http://localhost:8081/api/notify";  // URL del dashboard-service
+    // private static final String DASHBOARD_SERVICE_URL = "http://dashboard-service:8081/api/notify";  // URL del dashboard-service
+    // private static final String DASHBOARD_SERVICE_URL = "http://172.18.0.2:8081/api/notify";  // URL del dashboard-service
+    
 
-    // Crear un nuevo item
+    /**
+     * 
+     * Crear un nuenvo Item.
+     * 
+     * @param item Item.
+     * @return Item.
+     * @throws IOException Excepción.
+     */
     public Item createItem(Item item) throws IOException {
         prepareItemForProcessing(item, "WAITING");
         sendNotificationToDashboard(item, "Procesando creación de item");
@@ -34,17 +54,37 @@ public class ItemService {
         return item;
     }
 
-    // Obtener todos los items
+    /**
+     * 
+     * Obtener todos los items.
+     * 
+     * @return Lista con todos los items.
+     */
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
 
-    // Obtener un item por su ID
+
+    /**
+     * 
+     * Obtener un item por su ID.
+     * 
+     * @param id Identificador de Item.
+     * @return Item.
+     */
     public Optional<Item> getItemById(Long id) {
         return itemRepository.findById(id);
     }
 
-    // Actualizar un item
+    /**
+     * 
+     * Actualizar un item.
+     * 
+     * @param id Identificador de item.
+     * @param updatedItem Item a actualizar.
+     * @return Item actualizado.
+     * @throws IOException Excepción.
+     */
     public Item updateItem(Long id, Item updatedItem) throws IOException {
         Optional<Item> existingItem = itemRepository.findById(id);
         if (existingItem.isPresent()) {
@@ -69,7 +109,15 @@ public class ItemService {
         return null;
     }
 
-    // Eliminar un item
+    
+    /**
+     * 
+     * Eliminar un item.
+     * 
+     * @param id Identificador de Item.
+     * @return si lo eliminado.
+     * @throws IOException  Excepción.
+     */
     public boolean deleteItem(Long id) throws IOException {
         Optional<Item> existingItem = itemRepository.findById(id);
         if (existingItem.isPresent()) {
@@ -79,20 +127,34 @@ public class ItemService {
             sendNotificationToDashboard(item, "Procesando eliminación de item");
 
             prepareItemForProcessing(item, "DELETED");
-            item = itemRepository.save(item);
+            itemRepository.delete(item);
             sendNotificationToDashboard(item, "Item eliminado");
             return true;
         }
         return false;
     }
 
-    // Método auxiliar para establecer estado y timestamp
+    /**
+     * 
+     * Método auxiliar para establece estado y timestamp.
+     * 
+     * @param item Item.
+     * @param status Satus.
+     */
     private void prepareItemForProcessing(Item item, String status) {
         item.setStatus(status);
         item.setTimestamp(LocalDateTime.now());
     }
 
-    // Método auxiliar para enviar notificaciones al dashboard-service
+    
+    /**
+     * 
+     * Método auxilar para enviar notificaciones al dashboard-service.
+     * 
+     * @param item Item.
+     * @param message Mensaje. 
+     * @throws IOException Excepción.
+     */
     private void sendNotificationToDashboard(Item item, String message) throws IOException {
         NotificationPayload payload = new NotificationPayload(
                 item.getId(), // ID del item

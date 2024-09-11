@@ -7,14 +7,27 @@ import org.springframework.stereotype.Component;
 import com.vincle.console_management_app.service.ItemManagementService;
 import java.util.Scanner;
 
+/**
+ *
+ * Intefaz de usuario en consola para gestionar los items.
+ *
+ * @author Vicente Cuadrado
+ */
 @Component
 public class ConsoleApp implements CommandLineRunner {
 
     @Autowired
-    private ItemManagementService itemManagementService;
+    private ItemManagementService itemManagementService; // Servicio para gestionar los items
 
-    private static final Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in); // Entrada de consola.
 
+    /**
+     *
+     * Interfaz en la consola para gestionar los items.
+     *
+     * @param args Argumentos desde la línea de comandos.
+     * @throws Exception Excepción.
+     */
     @Override
     public void run(String... args) throws Exception {
         String command;
@@ -48,6 +61,11 @@ public class ConsoleApp implements CommandLineRunner {
         }
     }
 
+    /**
+     *
+     * Litar todos los items almacenados.
+     *
+     */
     private void listarItems() {
         Item[] items = itemManagementService.getAllItems();
         if (items != null && items.length > 0) {
@@ -59,6 +77,12 @@ public class ConsoleApp implements CommandLineRunner {
         }
     }
 
+    /**
+     *
+     * Crear un item.
+     *
+     * @param scanner Input para los campos de los items.
+     */
     private void crearItem(Scanner scanner) {
         String name = getValidatedName(scanner);
         String type = getValidatedType(scanner);
@@ -72,6 +96,12 @@ public class ConsoleApp implements CommandLineRunner {
         System.out.println("Item creado con éxito.");
     }
 
+    /**
+     *
+     * Actualizar un item.
+     *
+     * @param scanner Input para los campos de los items.
+     */
     private void actualizarItem(Scanner scanner) {
         System.out.print("ID del item a actualizar: ");
         Long id = Long.parseLong(scanner.nextLine());
@@ -87,6 +117,12 @@ public class ConsoleApp implements CommandLineRunner {
         System.out.println("Item actualizado con éxito.");
     }
 
+    /**
+     *
+     * Eliminar un item.
+     *
+     * @param scanner Input para los campos de los items.
+     */
     private void eliminarItem(Scanner scanner) {
         System.out.print("ID del item a eliminar: ");
         Long id = Long.parseLong(scanner.nextLine());
@@ -94,7 +130,14 @@ public class ConsoleApp implements CommandLineRunner {
         System.out.println("Item eliminado con éxito.");
     }
 
-    // Validaciones
+    /**
+     *
+     * Valida que el tipo de item sea uno de los permitidos (bebida, comida,
+     * salsas, especies).
+     *
+     * @param scanner Inpunt del campo.
+     * @return Tipo de item validado.
+     */
     private String getValidatedType(Scanner scanner) {
         String type;
         while (true) {
@@ -109,6 +152,13 @@ public class ConsoleApp implements CommandLineRunner {
         return type;
     }
 
+    /**
+     *
+     * Valida que la capacidad sea 100 o 1000.
+     *
+     * @param scanner Input del campo.
+     * @return La capacidad validada.
+     */
     private int getValidatedCapacity(Scanner scanner) {
         int capacity;
         while (true) {
@@ -127,6 +177,13 @@ public class ConsoleApp implements CommandLineRunner {
         return capacity;
     }
 
+    /**
+     *
+     * Valida que el envase sea 'botella' o 'caja'.
+     *
+     * @param scanner Input del campo.
+     * @return El envase validado en mayúsculas.
+     */
     private String getValidatedContainer(Scanner scanner) {
         String container;
         while (true) {
@@ -141,6 +198,13 @@ public class ConsoleApp implements CommandLineRunner {
         return container;
     }
 
+    /**
+     * Valida una respuesta S/N para una pregunta booleana.
+     *
+     * @param scanner Input del campo
+     * @param message Mensaje que se muestra al usuario
+     * @return true si la respuesta es 'S', false si es 'N'
+     */
     private boolean getValidatedBoolean(Scanner scanner, String message) {
         boolean value;
         while (true) {
@@ -159,10 +223,26 @@ public class ConsoleApp implements CommandLineRunner {
         return value;
     }
 
+    /**
+     * 
+     * Valida que el nombre no esté vacío y lo convierte a mayúsculas.
+     *
+     * @param scanner Input del campo.
+     * @return El nombre validado en mayúsculas
+     */
     private String getValidatedName(Scanner scanner) {
         return getValidatedName(scanner, "Nombre: ");
     }
 
+
+    /**
+     * 
+     * Valida que un campo no esté vacío y lo convierte a mayúsculas.
+     * 
+     * @param scanner Input del campo.
+     * @param message Mensaje que se muestra al usuario
+     * @return El valor validado en mayúsculas
+     */    
     private String getValidatedName(Scanner scanner, String message) {
         String name;
         while (true) {

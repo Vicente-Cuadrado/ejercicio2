@@ -3,9 +3,12 @@ package com.vincle.console_management_app.model;
 import java.time.LocalDateTime;
 
 /**
- * Clase que representa un Item con todas sus propiedades.
- * Se utiliza en la aplicación de consola para gestionar la creación, actualización, 
- * eliminación y listado de Items.
+ * 
+ * Clase que representa un Item con todas sus propiedades. Se utiliza en la
+ * aplicación de consola para gestionar la creación, actualización, eliminación
+ * y listado de Items.
+ *
+ * @author Vicente Cuadrado
  */
 public class Item {
 
@@ -57,11 +60,12 @@ public class Item {
     /**
      * Constructor vacío necesario para la serialización.
      */
-    public Item() {}
+    public Item() {
+    }
 
     /**
      * Constructor con todos los parámetros necesarios para crear un item.
-     * 
+     *
      * @param name El nombre del item.
      * @param type El tipo de item (bebida, comida, etc.).
      * @param needsRefrigeration Indica si el item necesita refrigeración.
@@ -71,8 +75,8 @@ public class Item {
      * @param timestamp La fecha y hora de creación o modificación.
      * @param status El estado actual del item (CREATED, UPDATED, DELETED).
      */
-    public Item(String name, String type, boolean needsRefrigeration, int capacity, 
-                String container, String createdBy, LocalDateTime timestamp, String status) {
+    public Item(String name, String type, boolean needsRefrigeration, int capacity,
+            String container, String createdBy, LocalDateTime timestamp, String status) {
         this.name = name;
         this.type = type;
         this.needsRefrigeration = needsRefrigeration;
@@ -84,10 +88,9 @@ public class Item {
     }
 
     // Getters y Setters
-
     /**
      * Retorna el identificador único del item.
-     * 
+     *
      * @return El ID del item.
      */
     public Long getId() {
@@ -96,7 +99,7 @@ public class Item {
 
     /**
      * Asigna el identificador único del item.
-     * 
+     *
      * @param id El ID del item.
      */
     public void setId(Long id) {
@@ -105,7 +108,7 @@ public class Item {
 
     /**
      * Retorna el nombre del item.
-     * 
+     *
      * @return El nombre del item.
      */
     public String getName() {
@@ -114,7 +117,7 @@ public class Item {
 
     /**
      * Asigna el nombre del item.
-     * 
+     *
      * @param name El nombre del item.
      */
     public void setName(String name) {
@@ -123,7 +126,7 @@ public class Item {
 
     /**
      * Retorna el tipo de item (bebida, comida, etc.).
-     * 
+     *
      * @return El tipo de item.
      */
     public String getType() {
@@ -132,7 +135,7 @@ public class Item {
 
     /**
      * Asigna el tipo de item (bebida, comida, etc.).
-     * 
+     *
      * @param type El tipo de item.
      */
     public void setType(String type) {
@@ -141,7 +144,7 @@ public class Item {
 
     /**
      * Retorna si el item necesita refrigeración.
-     * 
+     *
      * @return true si necesita refrigeración, false de lo contrario.
      */
     public boolean isNeedsRefrigeration() {
@@ -150,8 +153,9 @@ public class Item {
 
     /**
      * Asigna si el item necesita refrigeración.
-     * 
-     * @param needsRefrigeration true si necesita refrigeración, false de lo contrario.
+     *
+     * @param needsRefrigeration true si necesita refrigeración, false de lo
+     * contrario.
      */
     public void setNeedsRefrigeration(boolean needsRefrigeration) {
         this.needsRefrigeration = needsRefrigeration;
@@ -159,7 +163,7 @@ public class Item {
 
     /**
      * Retorna la capacidad del item en gramos.
-     * 
+     *
      * @return La capacidad del item.
      */
     public int getCapacity() {
@@ -168,7 +172,7 @@ public class Item {
 
     /**
      * Asigna la capacidad del item en gramos.
-     * 
+     *
      * @param capacity La capacidad del item.
      */
     public void setCapacity(int capacity) {
@@ -177,7 +181,7 @@ public class Item {
 
     /**
      * Retorna el tipo de envase del item (botella o caja).
-     * 
+     *
      * @return El tipo de envase.
      */
     public String getContainer() {
@@ -186,7 +190,7 @@ public class Item {
 
     /**
      * Asigna el tipo de envase del item (botella o caja).
-     * 
+     *
      * @param container El tipo de envase.
      */
     public void setContainer(String container) {
@@ -195,7 +199,7 @@ public class Item {
 
     /**
      * Retorna el nombre del cliente que creó el item.
-     * 
+     *
      * @return El nombre del cliente.
      */
     public String getCreatedBy() {
@@ -204,7 +208,7 @@ public class Item {
 
     /**
      * Asigna el nombre del cliente que creó el item.
-     * 
+     *
      * @param createdBy El nombre del cliente.
      */
     public void setCreatedBy(String createdBy) {
@@ -213,7 +217,7 @@ public class Item {
 
     /**
      * Retorna la fecha y hora de creación o modificación del item.
-     * 
+     *
      * @return El timestamp del item.
      */
     public LocalDateTime getTimestamp() {
@@ -222,7 +226,7 @@ public class Item {
 
     /**
      * Asigna la fecha y hora de creación o modificación del item.
-     * 
+     *
      * @param timestamp El timestamp del item.
      */
     public void setTimestamp(LocalDateTime timestamp) {
@@ -231,7 +235,7 @@ public class Item {
 
     /**
      * Retorna el estado actual del item (CREATED, UPDATED, DELETED).
-     * 
+     *
      * @return El estado del item.
      */
     public String getStatus() {
@@ -240,7 +244,7 @@ public class Item {
 
     /**
      * Asigna el estado actual del item (CREATED, UPDATED, DELETED).
-     * 
+     *
      * @param status El estado del item.
      */
     public void setStatus(String status) {
@@ -249,21 +253,21 @@ public class Item {
 
     /**
      * Devuelve una representación en cadena del item, con todos sus atributos.
-     * 
+     *
      * @return La representación en cadena del item.
      */
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", needsRefrigeration=" + needsRefrigeration +
-                ", capacity=" + capacity +
-                ", container='" + container + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", timestamp=" + timestamp +
-                ", status='" + status + '\'' +
-                '}';
+        return "Item{"
+                + "id=" + id
+                + ", name='" + name + '\''
+                + ", type='" + type + '\''
+                + ", needsRefrigeration=" + needsRefrigeration
+                + ", capacity=" + capacity
+                + ", container='" + container + '\''
+                + ", createdBy='" + createdBy + '\''
+                + ", timestamp=" + timestamp
+                + ", status='" + status + '\''
+                + '}';
     }
 }

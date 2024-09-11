@@ -13,6 +13,12 @@ import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * 
+ * Controlador REST para la gestión de items.
+ * 
+ * @author Vicente Cuadrado
+ */
 @RestController
 @RequestMapping("/api/items")
 @Tag(name = "Item API", description = "API para la gestión de items")  // Etiqueta de la API

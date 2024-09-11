@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
  * Clase que representa un Item con todas sus propiedades.
  * Se utiliza en la aplicación de consola para gestionar la creación, actualización, 
  * eliminación y listado de Items.
+ * 
+ * @author Vicente Cuadrado
+ * 
  */
 public class Item {
 

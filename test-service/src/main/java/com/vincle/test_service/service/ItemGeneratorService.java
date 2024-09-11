@@ -7,6 +7,15 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+/**
+ *
+ * Servicio encargado de generar items aleatorios.
+ *
+ * Esta clase se utiliza para crear instancias de items con propiedades
+ * generadas de manera aleatoria.
+ *
+ * @author Vicente Cuadrado
+ */
 @Service
 public class ItemGeneratorService {
 
@@ -15,7 +24,12 @@ public class ItemGeneratorService {
     // Array de tipos de productos
     private static final String[] TYPES = {"BEBIDA", "COMIDA", "SALSAS", "ESPECIES"};
 
-    // Método para generar un item aleatorio
+    /**
+     *
+     * Método para generar un item con valores aleatorios.
+     *
+     * @return Item con valores generados aleatoriamente.
+     */
     public Item generateRandomItem() {
         Item item = new Item();
         item.setName("Item " + random.nextInt(1000)); // Nombre aleatorio
@@ -29,7 +43,12 @@ public class ItemGeneratorService {
         return item;
     }
 
-    // Método para obtener un tipo aleatorio
+    /**
+     * Método privado que selecciona aleatoriamente un tipo de item.
+     *
+     * @return Un tipo aleatorio desde el array de tipos ("BEBIDA", "COMIDA",
+     * "SALSAS", "ESPECIES").
+     */
     private String getRandomType() {
         int index = random.nextInt(TYPES.length);
         return TYPES[index];

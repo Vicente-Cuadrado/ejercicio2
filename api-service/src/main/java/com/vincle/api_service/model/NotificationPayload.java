@@ -3,9 +3,13 @@ package com.vincle.api_service.model;
 import java.time.LocalDateTime;
 
 /**
+ * 
  * Clase que representa el payload que se enviará como notificación
  * al dashboard-service o a otros servicios en la arquitectura de microservicios.
  * Contiene todos los detalles del Item.
+ * 
+ * @author Vicente Cuadrado
+ * 
  */
 public class NotificationPayload {
 

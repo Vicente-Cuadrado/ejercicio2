@@ -1,0 +1,27 @@
+version: '3'
+services:
+  api-service:
+    image: api-service:latest
+    build:
+      context: ./api-service
+    container_name: api-service
+    ports:
+      - "8080:8080"
+    networks:
+      - vincle-network
+
+  dashboard-service:
+    image: dashboard-service:latest
+    build:
+      context: ./dashboard-service
+    container_name: dashboard-service
+    ports:
+      - "8081:8081"
+    networks:
+      - vincle-network
+    depends_on:
+      - api-service
+
+networks:
+  vincle-network:
+    driver: bridge

@@ -6,20 +6,42 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ *
+ * Clase principal de la aplicación TestService
+ *
+ * @author Vicente Cuadrado
+ */
 @SpringBootApplication
 public class TestServiceApplication implements CommandLineRunner {
 
-    private final TestService testService;
+    private final TestService testService; // Servicio encargado de realizar las operaciones
 
-    // Inyección de TestService por constructor
-    public TestServiceApplication(TestService testService) {
-        this.testService = testService;
-    }
-
+    /**
+     * Método principal que lanza la aplicación.
+     *
+     * @param args Argumentos de la línea de comandos.
+     */
     public static void main(String[] args) {
         SpringApplication.run(TestServiceApplication.class, args);
     }
 
+    /**
+     * Constructor que inyecta una instancia de TestService.
+     *
+     * @param testService Servicio que gestiona las operaciones de prueba.
+     */
+    public TestServiceApplication(TestService testService) {
+        this.testService = testService;
+    }
+
+    /**
+     * Método que se ejecuta al iniciar la aplicación. Permite ejecutar un bucle
+     * donde se solicitan iteraciones para realizar operaciones aleatorias.
+     *
+     * @param args Argumentos de la línea de comandos.
+     * @throws Exception Si ocurre algún error durante la ejecución.
+     */
     @Override
     public void run(String... args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -37,6 +59,7 @@ public class TestServiceApplication implements CommandLineRunner {
 
         } while (numberOfOperations != 0);
 
-        System.out.println("Programa finalizado.");    }
+        System.out.println("Programa finalizado.");
+    }
 
 }
